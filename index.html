@@ -27,89 +27,180 @@
 
     <body>
 
-
-
-        <input placeholder="Enter Your ZIP Code" name="name" id="zip" />
-        <p id="zip_display"></p>
-
-
         <div class="results" id="app">
-            <h1>TIME</h1>
-            <p>{{time.day}}</p>
-            <p>{{time.date}}</p>
-            <p>{{time.hour_12}} : {{time.minute}} : {{time.seconds}} {{time.ampm}}</p>
-            <p>{{time.moom}}</p>
-
-            <h1>META</h1>
-            <p>{{city}}</p>
-
-            <p>{{location.zip}}</p>
-            <p>{{location.coord.lat}}</p>
-            <p>{{location.coord.lon}}</p>
-            <p>{{location.name}}</p>
-
-            <p>{{error}}</p>
 
 
-            <h1>CURRENT</h1>
-            <p>{{current.description_main}}</p>
-            <p>{{current.description_long}}</p>
-            <p>{{current.description_icon}}</p>
 
-            <p class="degree_symbol">{{current.temp.current}}</p>
-            <p class="degree_symbol">{{current.temp.high}}</p>
-            <p class="degree_symbol">{{current.temp.low}}</p>
-
-            <p>{{current.wind.speed}}</p>
-            <p class="degree_symbol">{{current.wind.degree}}</p>
-            <p>{{current.cloud_cover}}</p>
-
-            <p>{{current.rain}}</p>
-            <p>{{current.snow}}</p>
-
-            <p>{{current.sunrise}}</p>
-            <p>{{current.sunset}}</p>
+       
 
 
-            <h1>HOURLY</h1>
-            <h4>Hour 1</h4>
-            <p>{{hourly[0].isDaytime ? 'Day' : 'Night' }}</p>
-            <p>{{hourly[0].number}}</p>
-            <p>{{hourly[0].shortForecast}}</p>
-            <p>{{hourly[0].startTime}}</p>
-            <p class="degree_symbol">{{hourly[0].temperature}}</p>
-            <p>{{hourly[0].emperatureTrend}}</p>
-            <p>{{hourly[0].windSpeed}}</p>
-            <p>{{hourly[0].windDirection}}</p>
+            <input placeholder="Enter Your ZIP Code" v-on:input="zip_trigger" name="name" id="zip" />
+            <p id="zip_display"></p>
 
-            <h1>FORECAST</h1>
-            <h4>Day 1</h4>
-            <p  class="degree_symbol">High - {{forecast[0].max_temp}}</p>
-            <p  class="degree_symbol">Low - {{forecast[0].min_temp}}</p>
-            <p>{{forecast[0].uv}}</p>
-            <p>{{forecast[0].weather.description}}</p>
+            <div class="menu">
+                <h1>{{time.hour_12}} : {{time.minute}} : {{time.seconds}} {{time.ampm}}</h1>
+            </div>
 
-            <p>{{forecast[0].wind_spd}} mph</p>
-            <p>{{forecast[0].wind_cdir_full}}</p>
-            <p>{{forecast[0].wind_cdir}}</p>
+            <div class="grid">
+                <div class="alerts">
+                    <h1>Alerts</h1>
+                </div>
+                <div class="copy">
+                    <p>Thunderstorms will be in your area from 2 p.m. to 6:35 p.m. Heavy winds may be present.</p>
+                </div>
+            </div>
 
-            <p>{{forecast[0].vis}}</p>
+            <div class="grid2">
+                <div>
+                    <div class="image1" id=map>
+                        <!-- <img src="images/loopradar_sm_m320.gif" height="400" width="930"> -->
+                    </div>
+                    <div class="localannouncement">
+                        <h1>{{location.name}}</h1>
+                        <p>Barometric Pressure: 29.58</p>
+                        <p>Latitude and Longitude: {{location.coord.lat}}{{location.coord.lon}}</p>
+                        <p>Wind Pressure: 30.25</p>
+                        <p>Current Cloud Cover: {{current.cloud_cover}}</p>
+                        <p>Current Wind Speed: {{current.wind.speed}}</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="currenttemperature">
+                        <div class="currenttemp">
+                            <h1>Currently:</h1>
+                            <p>{{hourly[0].temperature}}</p>
+                            <p>{{current.description_long}}</p>
+                            <p></p>
+                        </div>
+                        <div class="icon">
+                                <p>{{current.description_icon}}</p>
+                            <img v-bind:src="'/img/' + current.description_icon + '.png'"
+                            v-bind:alt="current.description_long">
+                        </div>
+                        <div class="temperaturecopy">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <p>{{forecast[0].pop}}</p>
 
-            <p>{{forecast[0].precip}}</p>
+            
+                
+     
+            <div class="grid3">
+                <div class="rainheader">
+                    <h1>Rain Chances</h1>
+                </div>
+                <div class="pollenheader">
+                    <h1>Pollen Levels</h1>
+                </div>
+                <div class="airqualityheader">
+                    <h1>Air Quality</h1>
+                </div>
+                <div class="uvindexheader">
+                    <h1>UV Index</h1>
+                </div>
+                <div class="precipitation">
+                    <p>{{forecast[0].precip}}</p>
+                </div>
+                <div class="pollen">
+                    <p>Moderate</p>
+                </div>
+                <div class="airquality">
+                    <p>Moderate</p>
+                </div>
+                <div class="uvindex">
+                    <p>{{forecast[0].uv}}</p>
+                </div>
+            </div>
+            <div class="dewpoint">
+                <p>Dewpoint Currently: {{forecast[0].dewpt}}</p>
+            </div>
 
-            <p>{{forecast[0].snow}}</p>
 
-            <p>{{forecast[0].dewpt}}</p>
-            <p>{{forecast[0].pres}} mb</p>
+            <div class="fivedayforecast">
+                <div class="today">
+                    <div class="icon1">
+                    </div>
+                    <h1>Today</h1>
+                    <p>High {{forecast[0].max_temp}}°</p>
+                    <p>Low {{forecast[0].min_temp}}°</p>
+                </div>
+                <div class="tuesday">
+                    <div class="icon2">
+                    </div>
+                    <h1>Tuesday</h1>
+                    <p>High {{forecast[1].max_temp}}°</p>
+                    <p>Low {{forecast[1].min_temp}}°</p>
+                </div>
+                <div class="wednesday">
+                    <div class="icon3">
+                    </div>
+                    <h1>Wednesday</h1>
+                    <p>High {{forecast[2].max_temp}}°</p>
+                    <p>Low {{forecast[2].min_temp}}°</p>
+                </div>
+                <div class="thursday">
+                    <div class="icon4">
+                    </div>
+                    <h1>Thursday</h1>
+                    <p>High {{forecast[3].max_temp}}°</p>
+                    <p>Low {{forecast[3].min_temp}}°</p>
+                </div>
+                <div class="friday">
+                    <div class="icon5">
+                    </div>
+                    <h1>Friday</h1>
+                    <p>High {{forecast[4].max_temp}}°</p>
+                    <p>Low {{forecast[4].min_temp}}°</p>
+                </div>
+            </div>
+            <div class="grid4">
+                <div class="visibility">
+                    <div class="visibilityicon">
+                    </div>
+                    <div class="visibilityheader">
+                        <h1>Visibility</h1>
+                        <p>Visible for 10 miles</p>
+                    </div>
+                </div>
+                <div class="rain">
+                    <div class="rainicon">
+                        <div class="currently1">
+                            <h1>Current Rain</h1>
+                        <p>{{current.rain}}</p>
+                    </div>
+                    </div>
+                    <div class="header2">
+                    </div>
+                    <div class="snowchance">
 
-        </div>
+                        <div class="snowicon">
+                                <div class="currently2">
+                                    <h1>Current Snow</h1>
+                            </div>
+                        </div>
+                        <div class="snowheader">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid5">
+                <div class="sunrise">
+                    <div class="riseheader">
+                    <h1>6:58 a.m.</h1>
+                    </div>
+                </div>
+                <div class="sunset">
+                    <div class="setheader">
+                            <h1>8.42 p.m.</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="temperaturebox">
+            </div>
         <div id="map"></div>
-
-
-
-
-        <script src="/js/script.js" type="module"></script>
+        <script src="/js/script.js"></script>
+    </div>
     </body>
 </html>
